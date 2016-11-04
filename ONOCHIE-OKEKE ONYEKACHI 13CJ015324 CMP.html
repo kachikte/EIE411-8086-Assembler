@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>EIE411</title>
+<script type="text/javascript"></script>
+</head>
+<body>
+<h1>LINE ASSEMBLER</h1>
+<label id="la">Instruuction: </labebl>
+<input type="text" id="form-inst" onblur="action()" />
+<input type="submit" value="assemble" onclick="start();" />
+<div id="ans">The results are shown below: <br /></div>
+<script type="text/javascript">
+function start()
+{
+	var para=document.getElementById("form-inst");
+	var disp=document.getElementById("ans");
+	var parameters=para.value;
+	if(parameters.length>3)
+	{
+		if(parameters.substring(0,4).toUpperCase()=="CMP ")
+		{
+			var tri=parameters.replace(","," ");
+			var tri1=tri.trim().toUpperCase();
+			//immediate with accumulator
+			if (parameters.substring(4,6).toUpperCase()=="AX")
+			{
+				var conv=Number(parameters.substring(7));
+				disp.innerHTML="Hexadecimal value: 3D "+conv+" 00"+"<br />";
+				var nuh=(+conv).toString(2);
+				disp.innerHTML+="Binary value is: 0011 1101 "+nuh;
+			}
+			else if (parameters.substring(4,6).toUpperCase()=="AL")
+			{
+				var conv=Number(parameters.substring(7));
+				disp.innerHTML="Hexadecimal value: 3C "+conv+" "+"<br />";
+				var nuh=(+conv).toString(2);
+				disp.innerHTML+="Binary value is: 0011 1101 "+nuh;
+			}
+			//end of immediate with accumulator
+			//immediate with registe
+		}
+		else
+		{
+			disp.innerHTML=" ";
+			disp.innerHTML+="This assembler works only for CMP and make sure you put a space after CMP";
+		}
+	}
+	else
+	{
+		disp.textContent=" ";
+		disp.textContent+="Wrong! Enter a valid instruction";
+	}
+}
+</script>
+</body>
+</html>
